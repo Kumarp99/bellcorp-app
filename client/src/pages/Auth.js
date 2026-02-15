@@ -11,7 +11,7 @@ const Auth = () => {
         e.preventDefault();
         const endpoint = isLogin ? 'login' : 'register';
         try {
-            const res = await axios.post(`http://localhost:5000/api/auth/${endpoint}`, formData);
+            const res = await axios.post(`https://bellcorp-app.onrender.com/api/auth/${endpoint}`, formData);
             
             // Save token and user info to browser storage
             localStorage.setItem('token', res.data.token);
