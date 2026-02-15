@@ -1,23 +1,45 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const Event = require('./models/Event');
 
-// Hardcoded URI to bypass the .env error
-const MONGO_URI = "mongodb://127.0.0.1:27017/bellcorp";
+dotenv.config();
+
 const dummyEvents = [
-    { name: "Tech Summit 2026", organizer: "Bellcorp", location: "Mumbai", date: new Date(), description: "AI & Robotics Workshop", capacity: 100, category: "Tech" },
-    { name: "Marketing Night", organizer: "Growth Hub", location: "Online", date: new Date(), description: "Digital Marketing Trends", capacity: 50, category: "Marketing" },
-    { name: "Career Fair", organizer: "HR Connect", location: "New York", date: new Date(), description: "Networking Event", capacity: 200, category: "Career" }
+    {
+        name: "Future Tech Expo 2026",
+        location: "Silicon Valley",
+        date: new Date("2026-08-15"), // Upcoming
+        category: "Tech",
+        capacity: 50,
+        registeredUsers: []
+    },
+    {
+        name: "Past Marketing Summit 2023",
+        location: "New York",
+        date: new Date("2023-11-10"), // Past
+        category: "Marketing",
+        capacity: 100,
+        registeredUsers: []
+    },
+    {
+        name: "Global Career Fair",
+        location: "Remote",
+        date: new Date("2026-12-01"), // Upcoming
+        category: "Career",
+        capacity: 200,
+        registeredUsers: []
+    }
 ];
 
-mongoose.connect(MONGO_URI)
+mongoose.connect(process.env.MONGO_URI)
     .then(async () => {
         console.log("Connected to MongoDB...");
-        await Event.deleteMany({}); 
+        await Event.deleteMany({});
         await Event.insertMany(dummyEvents);
-        console.log("✅ Database Seeded Successfully!");
+        console.log("✅ Database Seeded with Past & Future events!");
         process.exit();
     })
     .catch(err => {
-        console.error("❌ Seed Error:", err);
+        console.error(err);
         process.exit(1);
     });
