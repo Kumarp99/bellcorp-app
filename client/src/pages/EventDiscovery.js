@@ -31,7 +31,7 @@ const EventDiscovery = () => {
         }
 
         try {
-            await axios.post('http://localhost:5000/api/events/register', 
+            await axios.post(https://bellcorp-app.onrender.com/api/events/register',
                 { eventId }, 
                 { headers: { Authorization: `Bearer ${token}` } }
             );
