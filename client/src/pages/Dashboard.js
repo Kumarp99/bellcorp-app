@@ -7,7 +7,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         if (token) {
-            axios.get('http://localhost:5000/api/events/my-events', {
+            axios.get('https://bellcorp-app.onrender.com/api/events/my-events', {
                 headers: { Authorization: `Bearer ${token}` }
             })
             .then(res => setMyEvents(res.data))
